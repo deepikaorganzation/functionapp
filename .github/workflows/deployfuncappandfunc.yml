@@ -38,12 +38,12 @@ jobs:
     
     - name: echo env params
       run: |
-        echo "RESOURCE_GROUP_NAME :${{ RESOURCE_GROUP_NAME }}"
-        echo "functionAppName :${{ functionAppName }}"
-        echo "RESOURCE_GROUP_NAME :${RESOURCE_GROUP_NAME}"
-        echo "functionAppName :${functionAppName}"
-        echo "RESOURCE_GROUP_NAME :$RESOURCE_GROUP_NAME"
-        echo "functionAppName :$functionAppName"
+        echo "RESOURCE_GROUP_NAME :${{ env.RESOURCE_GROUP_NAME }}"
+        echo "functionAppName :${{ env.functionAppName }}"
+        echo "RESOURCE_GROUP_NAME :${env.RESOURCE_GROUP_NAME}"
+        echo "functionAppName :${env.functionAppName}"
+        echo "RESOURCE_GROUP_NAME :$env.RESOURCE_GROUP_NAME"
+        echo "functionAppName :$env.functionAppName"
 
     # - name: Set environment variables
     #   id: set-env
