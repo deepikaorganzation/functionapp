@@ -3,7 +3,7 @@
        "appInsightsInstrumentationKey": "applicationInsights.properties.InstrumentationKey",
        "serviceBusQueueTriggerDisabled": "1",
        "functionAppName": "komatsu-func-app",
-       "location": "eastus",
+       "location": "northeurope",
        "storageAccountName": "demoteststgacc",
        "appServicePlanName": "appservicekomatsu",
        "applicationInsightsName": "appinsightskomastufuncapp",
