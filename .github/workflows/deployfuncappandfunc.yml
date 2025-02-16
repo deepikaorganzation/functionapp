@@ -128,7 +128,7 @@ jobs:
           --name ${{ env.functionAppName }} \
           --resource-group ${{ env.resourceGroupName }} \
           --src ./artifact/functionapp.zip
-          
+
     - name: Verify Deployment
       run: |
         az functionapp show \
