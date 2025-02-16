@@ -12,5 +12,6 @@
        "functionsWorkerRuntime": "dotnet-isolated",
        "websiteRunFromPackage": "1",
        "websiteVnetRouteAll": "1",
-       "resourceGroupName": "DefaultResourceGroup-NEU"
+       "resourceGroupName": "DefaultResourceGroup-NEU",
+       "projectPath": "src/FunctionAppHTTP.csproj"
 }
