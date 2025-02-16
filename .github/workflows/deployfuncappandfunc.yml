@@ -47,6 +47,9 @@ jobs:
       with:
         dotnet-version: '8.x'
 
+    - name: Restore dependencies
+      run: dotnet restore ${{ env.projectPath }}
+
     - name: Build the application
       run: dotnet build --configuration Release ${{ env.projectPath }}
 
