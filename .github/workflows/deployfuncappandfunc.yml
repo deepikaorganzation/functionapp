@@ -144,7 +144,7 @@ jobs:
       run: |
         az functionapp deployment source config-zip \
         --name "komatsu-func-app" \
-        --resource-group "northeurope" \
+        --resource-group "DefaultResourceGroup-NEU" \
         --src ./artifact/functionapp.zip
 
     - name: Verify Deployment
