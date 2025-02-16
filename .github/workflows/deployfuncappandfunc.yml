@@ -167,7 +167,7 @@ jobs:
 
     - name: Combine parameters
       run: |
-        combineParams=$(jq -s '.[0] * .[1]' ./bicep/modules/parameters/${{ github.event.inputs.environment }}parameter.json inlineParams.json)
+        combineParams=$(jq -s 'add' ./bicep/modules/parameters/${{ github.event.inputs.environment }}parameter.json inlineParams.json)
         echo "Combined parameters:"
         echo "$combineParams"
         
