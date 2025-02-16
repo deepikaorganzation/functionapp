@@ -125,10 +125,10 @@ jobs:
     - name: Deploy to Azure Function
       run: |
         az functionapp deployment source config-zip \
-            --name ${{ env.functionAppName }} \
-            --resource-group ${{ env.resourceGroupName }} \
-            --src ./artifact/functionapp.zip
-
+          --name ${{ env.functionAppName }} \
+          --resource-group ${{ env.resourceGroupName }} \
+          --src ./artifact/functionapp.zip
+          
     - name: Verify Deployment
       run: |
         az functionapp show \
