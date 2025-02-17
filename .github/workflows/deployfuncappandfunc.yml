@@ -6,7 +6,7 @@ on:
       - test-old_fa
   # pull_request:
   #   branches:
-  #     - main
+  #     - main#
 
  #on:
   #workflow_dispatch:
