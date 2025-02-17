@@ -1,86 +1,101 @@
 name: Deploy .NET 8.0 Isolated Function App
- 
+
 on:
   push:
     branches:
-      - develop
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Choose environment to deploy'
-        required: true
-        default: 'Dev'
-        type: choice
-        options:
-          - dev
-          - qa
-          - uat
-          - prod
- 
-env: 
-  ENVIRONMENT: ${{ github.event.inputs.environment }}
-  projectPath: $(jq -r ".projectPath" ./bicep/modules/parameters/${{ github.event.inputs.environment }}parameter.json)
-  resourceGroupName: $(jq -r ".resourceGroupName" ./bicep/modules/parameters/${{ github.event.inputs.environment }}parameter.json)
-  functionAppName: $(jq -r ".functionAppName" ./bicep/modules/parameters/${{ github.event.inputs.environment }}parameter.json)
-  location: $(jq -r ".location" ./bicep/modules/parameters/${{ github.event.inputs.environment }}parameter.json)
-  storageAccountName: $(jq -r ".storageAccountName" ./bicep/modules/parameters/${{ github.event.inputs.environment }}parameter.json)
-  appServicePlanName: $(jq -r ".appServicePlanName" ./bicep/modules/parameters/${{ github.event.inputs.environment }}parameter.json)
-  applicationInsightsName: $(jq -r ".applicationInsightsName" ./bicep/modules/parameters/${{ github.event.inputs.environment }}parameter.json)
-  logAnalyticsWorkspaceName: $(jq -r ".logAnalyticsWorkspaceName" ./bicep/modules/parameters/${{ github.event.inputs.environment }}parameter.json)
-  appInsightsInstrumentationKey : $(jq -r ".appInsightsInstrumentationKey" ./bicep/modules/parameters/${{ github.event.inputs.environment }}parameter.json)
-  functionsExtensionVersion : $(jq -r ".functionsExtensionVersion" ./bicep/modules/parameters/${{ github.event.inputs.environment }}parameter.json)
-  functionsWorkerRuntime : $(jq -r ".functionsWorkerRuntime" ./bicep/modules/parameters/${{ github.event.inputs.environment }}parameter.json)
-  serviceBusQueueTriggerDisabled : $(jq -r ".serviceBusQueueTriggerDisabled" ./bicep/modules/parameters/${{ github.event.inputs.environment }}parameter.json)
-  websiteRunFromPackage : $(jq -r ".functionAppName" ./bicep/modules/parameters/${{ github.event.inputs.environment }}parameter.json)
-  websiteVnetRouteAll : $(jq -r ".websiteVnetRouteAll" ./bicep/modules/parameters/${{ github.event.inputs.environment }}parameter.json)
- 
+      - test-old_fa
+  # pull_request:
+  #   branches:
+  #     - main
+
+ #on:
+  #workflow_dispatch:
+    #inputs:
+      #environment:
+        #description: 'Choose environment to deploy'
+        #required: true
+        #default: 'Dev'
+        #type: choice
+        #options:
+          #- Dev
+          #- Test
+          #- Stage
+
 jobs:
   build:
     runs-on: ubuntu-latest
- 
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+
     - name: Set up .NET 8.x SDK
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.x'
- 
+
+    - name: Set project path
+      run: echo "PROJECT_PATH=src/FunctionAppHTTP.csproj" >> $GITHUB_ENV
+
     - name: Restore dependencies
-      run: dotnet restore ${{ env.projectPath }}
- 
+      run: dotnet restore ${{ env.PROJECT_PATH }}
+
     - name: Build the application
-      run: dotnet build --configuration Release ${{ env.projectPath }}
- 
+      run: dotnet build --configuration Release ${{ env.PROJECT_PATH }}
+
     - name: Publish the application
-      run: dotnet publish --configuration Release --output ./publish ${{ env.projectPath }} --self-contained false
+      run: dotnet publish --configuration Release --output ./publish ${{ env.PROJECT_PATH }} --self-contained false
+    
     - name: Zip the published files
       run: |
         mkdir -p artifact
         # Zip only the contents of the publish folder, not the folder itself
         cd ./publish
         zip -r ../artifact/functionapp.zip .
+      
     - name: Upload functionapp.zip artifact
       id: uploadzipartifact
       uses: actions/upload-artifact@v4
       with:
         name: functionapp-zip
         path: ./artifact/functionapp.zip
- 
+
+    #- name: Publish artifact
+     # uses: actions/upload-artifact@v4
+      #with:
+       # name: function-app-artifact
+        #path: ./functionapp.zip
+
+    # - name: Zip the published files
+    #   run: |
+    #     cd ./publish
+    #     zip -r ../functionapp.zip .
+    
+    # - name: Publish artifact
+    #  uses: actions/upload-artifact@v4
+    #   with:
+    #     name: function-app-artifact
+    #     path: ./functionapp.zip
+
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    environment: ${{ github.event.inputs.environment }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
- 
+
+    #- name: Download functionapp.zip artifact
+     # uses: actions/download-artifact@v4
+      #with:
+       # name: functionapp-zip
+        #path: ./artifact
+
     - name: Set up Azure CLI
       uses: azure/cli@v1
       with:
         inlineScript: |
           az --version
- 
+
     - name: Log in to Azure
       uses: azure/login@v2
       with:
@@ -92,44 +107,17 @@ jobs:
                 "tenantId":"${{ secrets.AZURE_TENANT_ID }}"
               }
         enable-AzPSSession: true
- 
+
     - name: Install Bicep
       run: az bicep install
- 
-    - name: check secrets
-      run: |
-          if [ -z "${{ secrets.AZUREWEBJOBSSTORAGE }}" ]; then
-            echo "AZUREWEBJOBSSTORAGE is not set"
-            exit 1
-          fi  
-    - name: Deploy Azure infrastructure with Bicep
-      run: |
-        az deployment group create \
-            --resource-group ${{ env.resourceGroupName }} \
-            --template-file ./bicep/modules/Function_APP.bicep \
-            --parameters AWSS3AcessKey=${{ secrets.AWSS3AcessKey }} \
-            --parameters AWSS3SecretKey=${{ secrets.AWSS3SecretKey }} \
-            --parameters storageConnectionString=${{ secrets.AZUREWEBJOBSSTORAGE }} \
-            --parameters functionAppName=${{ env.functionAppName }} \
-            --parameters location=${{ env.location }} \
-            --parameters storageAccountName=${{ env.storageAccountName }} \
-            --parameters appServicePlanName=${{ env.appServicePlanName }} \
-            --parameters applicationInsightsName=${{ env.applicationInsightsName }} \
-            --parameters logAnalyticsWorkspaceName=${{ env.logAnalyticsWorkspaceName }} \
-            --parameters appInsightsInstrumentationKey=${{ env.appInsightsInstrumentationKey }} \
-            --parameters functionsExtensionVersion=${{ env.functionsExtensionVersion }} \
-            --parameters functionsWorkerRuntime=${{ env.functionsWorkerRuntime }} \
-            --parameters serviceBusQueueTriggerDisabled=${{ env.serviceBusQueueTriggerDisabled }} \
-            --parameters websiteRunFromPackage=${{ env.websiteRunFromPackage }} \
-            --parameters websiteVnetRouteAll=${{ env.websiteVnetRouteAll }} \
-            --parameters resourceGroupName=${{ env.resourceGroupName }}
- 
+      
+
     - name: Download artifact
       uses: actions/download-artifact@v4
       with:
          name: functionapp-zip  # The name of the artifact to download
          path: ./artifact       # The path where the artifact will be stored
- 
+
     - name: Confirm Download Success
       run: |
         if [ -f ./artifact/functionapp.zip ]; then
@@ -137,16 +125,40 @@ jobs:
         else
           echo "Artifact download failed!" && exit 1
         fi
- 
+
+    # - name: Unzip the artifact
+    #   run: |
+    #    unzip ./artifact/functionapp.zip -d ./artifact
+
+    #- name: Deploy Function to Azure
+     # run: |
+      #  az webapp deploy \
+       #   --name "komatsu-func-app" \
+        #  --resource-group "DefaultResourceGroup-NEU" \
+         # --src-path ./publish/functionapp.zip
+
+    #- name: Deploy Function App to Azure using Zip
+     # run: |
+      #  az functionapp deployment source config-zip \
+       #  --name "komatsu-func-app" \
+        # --resource-group "DefaultResourceGroup-NEU" \
+         #--src ./functionapp.zip
+
     - name: Deploy to Azure Function
       run: |
         az functionapp deployment source config-zip \
-            --name ${{ env.functionAppName }} \
-            --resource-group ${{ env.resourceGroupName }} \
-            --src ./artifact/functionapp.zip
- 
+        --name "komatsu-func-app" \
+        --resource-group "DefaultResourceGroup-NEU" \
+        --src ./artifact/functionapp.zip
+
     - name: Verify Deployment
       run: |
         az functionapp show \
-        --name ${{ env.functionAppName }} \
-        --resource-group ${{ env.resourceGroupName }}
+        --name "komatsu-func-app" \
+        --resource-group "DefaultResourceGroup-NEU" \
+      
+      # uses: azure/functions-action@v1
+      # with:
+      #   app-name: "komatsu-func-app"
+      #   package: './artifact/functionapp.zip'
+      #   publish-type: package #
