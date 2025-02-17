@@ -17,9 +17,9 @@ on:
         #default: 'Dev'
         #type: choice
         #options:
-          #- Dev
-          #- Test
-          #- Stage
+          #- dev
+          #- test
+          #- stage
 
 env: 
   ENVIRONMENT: "dev"
