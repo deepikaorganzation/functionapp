@@ -52,7 +52,7 @@ env:
   functionsExtensionVersion : $(jq -r ".functionsExtensionVersion" ./bicep/modules/parameters/devparameter.json)
   functionsWorkerRuntime : $(jq -r ".functionsWorkerRuntime" ./bicep/modules/parameters/devparameter.json)
   serviceBusQueueTriggerDisabled : $(jq -r ".serviceBusQueueTriggerDisabled" ./bicep/modules/parameters/devparameter.json)
-  websiteRunFromPackage : $(jq -r ".functionAppName" ./bicep/modules/parameters/devparameter.json)
+  websiteRunFromPackage : $(jq -r ".websiteRunFromPackage" ./bicep/modules/parameters/devparameter.json)
   websiteVnetRouteAll : $(jq -r ".websiteVnetRouteAll" ./bicep/modules/parameters/devparameter.json)
 
 jobs:
