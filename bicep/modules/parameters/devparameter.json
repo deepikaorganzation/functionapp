@@ -10,7 +10,7 @@
        "logAnalyticsWorkspaceName": "law-komatsu-dev",
        "functionsExtensionVersion": "~4",
        "functionsWorkerRuntime": "dotnet-isolated",
-       "websiteRunFromPackage": "1",
+       "websiteRunFromPackage": 1,
        "websiteVnetRouteAll": "1",
        "resourceGroupName": "DefaultResourceGroup-NEU",
        "projectPath": "src/FunctionAppHTTP.csproj"
