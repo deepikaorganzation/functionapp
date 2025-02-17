@@ -125,27 +125,27 @@ jobs:
             exit 1
           fi          
  
-    # - name: Deploy Azure infrastructure with Bicep
-      # run: |
-        # az deployment group create \
-            # --resource-group ${{ env.resourceGroupName }} \
-            # --template-file ./bicep/modules/Function_APP.bicep \
-            # --parameters AWSS3AcessKey=${{ secrets.AWSS3AcessKey }} \
-            # --parameters AWSS3SecretKey=${{ secrets.AWSS3SecretKey }} \
-            # --parameters storageConnectionString=${{ secrets.AZUREWEBJOBSSTORAGE }} \
-            # --parameters functionAppName=${{ env.functionAppName }} \
-            # --parameters location=${{ env.location }} \
-            # --parameters storageAccountName=${{ env.storageAccountName }} \
-            # --parameters appServicePlanName=${{ env.appServicePlanName }} \
-            # --parameters applicationInsightsName=${{ env.applicationInsightsName }} \
-            # --parameters logAnalyticsWorkspaceName=${{ env.logAnalyticsWorkspaceName }} \
-            # --parameters appInsightsInstrumentationKey=${{ env.appInsightsInstrumentationKey }} \
-            # --parameters functionsExtensionVersion=${{ env.functionsExtensionVersion }} \
-            # --parameters functionsWorkerRuntime=${{ env.functionsWorkerRuntime }} \
-            # --parameters serviceBusQueueTriggerDisabled=${{ env.serviceBusQueueTriggerDisabled }} \
-            # --parameters websiteRunFromPackage=${{ env.websiteRunFromPackage }} \
-            # --parameters websiteVnetRouteAll=${{ env.websiteVnetRouteAll }} \
-            # --parameters resourceGroupName=${{ env.resourceGroupName }}
+    - name: Deploy Azure infrastructure with Bicep
+      run: |
+        az deployment group create \
+            --resource-group ${{ env.resourceGroupName }} \
+            --template-file ./bicep/modules/Function_APP.bicep \
+            --parameters AWSS3AcessKey=${{ secrets.AWSS3AcessKey }} \
+            --parameters AWSS3SecretKey=${{ secrets.AWSS3SecretKey }} \
+            --parameters storageConnectionString=${{ secrets.AZUREWEBJOBSSTORAGE }} \
+            --parameters functionAppName=${{ env.functionAppName }} \
+            --parameters location=${{ env.location }} \
+            --parameters storageAccountName=${{ env.storageAccountName }} \
+            --parameters appServicePlanName=${{ env.appServicePlanName }} \
+            --parameters applicationInsightsName=${{ env.applicationInsightsName }} \
+            --parameters logAnalyticsWorkspaceName=${{ env.logAnalyticsWorkspaceName }} \
+            --parameters appInsightsInstrumentationKey=${{ env.appInsightsInstrumentationKey }} \
+            --parameters functionsExtensionVersion=${{ env.functionsExtensionVersion }} \
+            --parameters functionsWorkerRuntime=${{ env.functionsWorkerRuntime }} \
+            --parameters serviceBusQueueTriggerDisabled=${{ env.serviceBusQueueTriggerDisabled }} \
+            --parameters websiteRunFromPackage=${{ env.websiteRunFromPackage }} \
+            --parameters websiteVnetRouteAll=${{ env.websiteVnetRouteAll }} \
+            --parameters resourceGroupName=${{ env.resourceGroupName }}
 
     - name: Download artifact
       uses: actions/download-artifact@v4
