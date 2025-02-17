@@ -164,8 +164,8 @@ jobs:
     - name: Deploy to Azure Function
       run: |
         az functionapp deployment source config-zip \
-            --name ${{ env.functionAppName }} \
-            --resource-group ${{ env.resourceGroupName }} \
+            --name "Test33" \
+            --resource-group "DefaultResourceGroup-NEU" \
             --src ./artifact/functionapp.zip
 
     - name: Verify Deployment
