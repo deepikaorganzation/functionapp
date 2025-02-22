@@ -55,6 +55,7 @@ env:
   websiteRunFromPackage : $(jq -r ".websiteRunFromPackage" ./bicep/modules/parameters/${{env.ENVIRONMENT}}parameter.json)
   websiteVnetRouteAll : $(jq -r ".websiteVnetRouteAll" ./bicep/modules/parameters/${{env.ENVIRONMENT}}parameter.json)
   EmailApiClientSecret : $(jq -r ".EmailApiClientSecret" ./bicep/modules/parameters/${{env.ENVIRONMENT}}parameter.json)
+  existingKeyVaultName : $(jq -r ".keyvaultName" ./bicep/modules/parameters/${{env.ENVIRONMENT}}parameter.json)
 
 jobs:
   build:
@@ -148,6 +149,8 @@ jobs:
             --parameters websiteVnetRouteAll=${{ env.websiteVnetRouteAll }} \
             --parameters resourceGroupName=${{ env.resourceGroupName }} \
             --parameters EmailApiClientSecret=${{ env.EmailApiClientSecret }}
+            --parameters existingKeyVaultName=${{ env.existingKeyVaultName }}
+
             
 
     - name: Download artifact
