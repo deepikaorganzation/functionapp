@@ -1,25 +1,25 @@
 name: Deploy .NET 8.0 Isolated Function App
 
-on:
-  push:
-    branches:
-      - test-old_fa
-  # pull_request:
-  #   branches:
-  #     - main#
+# on:
+#   push:
+#     branches:
+#       - test-old_fa
+#   # pull_request:
+#   #   branches:
+#   #     - main#
 
- #on:
-  #workflow_dispatch:
-    #inputs:
-      #environment:
-        #description: 'Choose environment to deploy'
-        #required: true
-        #default: 'Dev'
-        #type: choice
-        #options:
-          #- dev
-          #- test
-          #- stage
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Choose environment to deploy'
+        required: true
+        default: 'Dev'
+        type: choice
+        options:
+          - dev
+          - test
+          - stage
 
 # env: 
   # ENVIRONMENT: ${{ github.event.inputs.environment }}
@@ -39,21 +39,22 @@ on:
   # websiteVnetRouteAll : $(jq -r ".websiteVnetRouteAll" ./bicep/modules/parameters/${{ github.event.inputs.environment }}parameter.json)
 
 env: 
-  ENVIRONMENT: "dev"
-  projectPath: $(jq -r ".projectPath" ./bicep/modules/parameters/devparameter.json)
-  resourceGroupName: $(jq -r ".resourceGroupName" ./bicep/modules/parameters/devparameter.json)
-  functionAppName: $(jq -r ".functionAppName" ./bicep/modules/parameters/devparameter.json)
-  location: $(jq -r ".location" ./bicep/modules/parameters/devparameter.json)
-  storageAccountName: $(jq -r ".storageAccountName" ./bicep/modules/parameters/devparameter.json)
-  appServicePlanName: $(jq -r ".appServicePlanName" ./bicep/modules/parameters/devparameter.json)
-  applicationInsightsName: $(jq -r ".applicationInsightsName" ./bicep/modules/parameters/devparameter.json)
-  logAnalyticsWorkspaceName: $(jq -r ".logAnalyticsWorkspaceName" ./bicep/modules/parameters/devparameter.json)
-  appInsightsInstrumentationKey : $(jq -r ".appInsightsInstrumentationKey" ./bicep/modules/parameters/devparameter.json)
-  functionsExtensionVersion : $(jq -r ".functionsExtensionVersion" ./bicep/modules/parameters/devparameter.json)
-  functionsWorkerRuntime : $(jq -r ".functionsWorkerRuntime" ./bicep/modules/parameters/devparameter.json)
-  serviceBusQueueTriggerDisabled : $(jq -r ".serviceBusQueueTriggerDisabled" ./bicep/modules/parameters/devparameter.json)
-  websiteRunFromPackage : $(jq -r ".websiteRunFromPackage" ./bicep/modules/parameters/devparameter.json)
-  websiteVnetRouteAll : $(jq -r ".websiteVnetRouteAll" ./bicep/modules/parameters/devparameter.json)
+  ENVIRONMENT: ${{ github.event.inputs.environment }}
+  projectPath: $(jq -r ".projectPath" ./bicep/modules/parameters/${{env.ENVIRONMENT}}parameter.json)
+  resourceGroupName: $(jq -r ".resourceGroupName" ./bicep/modules/parameters/${{env.ENVIRONMENT}}parameter.json)
+  functionAppName: $(jq -r ".functionAppName" ./bicep/modules/parameters/${{env.ENVIRONMENT}}parameter.json)
+  location: $(jq -r ".location" ./bicep/modules/parameters/${{env.ENVIRONMENT}}parameter.json)
+  storageAccountName: $(jq -r ".storageAccountName" ./bicep/modules/parameters/${{env.ENVIRONMENT}}parameter.json)
+  appServicePlanName: $(jq -r ".appServicePlanName" ./bicep/modules/parameters/${{env.ENVIRONMENT}}parameter.json)
+  applicationInsightsName: $(jq -r ".applicationInsightsName" ./bicep/modules/parameters/${{env.ENVIRONMENT}}parameter.json)
+  logAnalyticsWorkspaceName: $(jq -r ".logAnalyticsWorkspaceName" ./bicep/modules/parameters/${{env.ENVIRONMENT}}parameter.json)
+  appInsightsInstrumentationKey : $(jq -r ".appInsightsInstrumentationKey" ./bicep/modules/parameters/${{env.ENVIRONMENT}}parameter.json)
+  functionsExtensionVersion : $(jq -r ".functionsExtensionVersion" ./bicep/modules/parameters/${{env.ENVIRONMENT}}parameter.json)
+  functionsWorkerRuntime : $(jq -r ".functionsWorkerRuntime" ./bicep/modules/parameters/${{env.ENVIRONMENT}}parameter.json)
+  serviceBusQueueTriggerDisabled : $(jq -r ".serviceBusQueueTriggerDisabled" ./bicep/modules/parameters/${{env.ENVIRONMENT}}parameter.json)
+  websiteRunFromPackage : $(jq -r ".websiteRunFromPackage" ./bicep/modules/parameters/${{env.ENVIRONMENT}}parameter.json)
+  websiteVnetRouteAll : $(jq -r ".websiteVnetRouteAll" ./bicep/modules/parameters/${{env.ENVIRONMENT}}parameter.json)
+  EmailApiClientSecret : $(jq -r ".EmailApiClientSecret" ./bicep/modules/parameters/${{env.ENVIRONMENT}}parameter.json)
 
 jobs:
   build:
@@ -145,7 +146,9 @@ jobs:
             --parameters serviceBusQueueTriggerDisabled=${{ env.serviceBusQueueTriggerDisabled }} \
             --parameters websiteRunFromPackage=${{ env.websiteRunFromPackage }} \
             --parameters websiteVnetRouteAll=${{ env.websiteVnetRouteAll }} \
-            --parameters resourceGroupName=${{ env.resourceGroupName }}
+            --parameters resourceGroupName=${{ env.resourceGroupName }} \
+            --parameters EmailApiClientSecret=${{ env.EmailApiClientSecret }}
+            
 
     - name: Download artifact
       uses: actions/download-artifact@v4
