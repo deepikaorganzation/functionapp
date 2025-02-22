@@ -14,6 +14,8 @@ param resourceGroupName string
 param storageConnectionString string
 param AWSS3AcessKey string
 param AWSS3SecretKey string 
+param EmailApiClientSecret string 
+
 
 // Fetch the resource ID for the Storage Account dynamically
 resource storageAccount 'Microsoft.Storage/storageAccounts@2021-02-01' existing = {
@@ -88,6 +90,10 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
         {
           name: 'AWSS3SecretKey'
           value: AWSS3SecretKey
+        }
+        {
+          name: 'EmailApiClientSecret'
+          value: EmailApiClientSecret
         }
       ]
       cors: {
