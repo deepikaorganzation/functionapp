@@ -15,6 +15,13 @@ param storageConnectionString string
 param AWSS3AcessKey string
 param AWSS3SecretKey string 
 param EmailApiClientSecret string 
+param existingKeyVaultName string
+
+
+// Reference the existing Key Vault
+resource existingKeyVault 'Microsoft.KeyVault/vaults@2021-04-01-preview' existing = {
+  name: existingKeyVaultName
+}
 
 
 // Fetch the resource ID for the Storage Account dynamically
@@ -102,6 +109,26 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
         ] // Add portal.azure.com to the allowed origins dynamically
       }
     }
+  }
+}
+
+// Grant Key Vault access to the Function App
+resource keyVaultAccessPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2021-04-01-preview' = {
+  parent: existingKeyVault
+  name: 'add'
+  properties: {
+    accessPolicies: [
+      {
+        tenantId: subscription().tenantId
+        objectId: functionApp.identity.principalId
+        permissions: {
+          secrets: [
+            'get'
+            'list'
+          ]
+        }
+      }
+    ]
   }
 }
 
