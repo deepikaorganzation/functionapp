@@ -55,7 +55,7 @@ env:
   websiteRunFromPackage : $(jq -r ".websiteRunFromPackage" ./bicep/modules/parameters/${{env.ENVIRONMENT}}parameter.json)
   websiteVnetRouteAll : $(jq -r ".websiteVnetRouteAll" ./bicep/modules/parameters/${{env.ENVIRONMENT}}parameter.json)
   EmailApiClientSecret : $(jq -r ".EmailApiClientSecret" ./bicep/modules/parameters/${{env.ENVIRONMENT}}parameter.json)
-  existingKeyVaultName : $(jq -r ".keyvaultName" ./bicep/modules/parameters/${{env.ENVIRONMENT}}parameter.json)
+  existingKeyVaultName : $(jq -r ".keyVaultName" ./bicep/modules/parameters/${{env.ENVIRONMENT}}parameter.json)
 
 jobs:
   build:
