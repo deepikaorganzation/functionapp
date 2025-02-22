@@ -14,4 +14,6 @@
        "websiteVnetRouteAll": "1",
        "resourceGroupName": "DefaultResourceGroup-NEU",
        "projectPath": "src/FunctionAppHTTP.csproj"
+       "EmailApiClientSecret" : "@Microsoft.KeyVault(SecretUri=https://kom-kx-eus-dev-kv1.vault.azure.net/secrets/notification-emailservice-secret)",
+
 }
