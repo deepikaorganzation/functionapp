@@ -5,7 +5,7 @@
        "storageAccountName": "komkxintappeusdevsa",
        "appServicePlanName": "kom-kx1-eus-dev-sp",
        "applicationInsightsName": "kom-kxint-eus-dev-appi",
-       "projectPath":"fa-.csproj",
+       "projectPath":"fa-csproj",
        "logAnalyticsWorkspaceName":"d-log-la",
 
        "AemMediaZipUnzipQueueName" : "sbq-aemmediazipunzip-pim-partsassetimg",
