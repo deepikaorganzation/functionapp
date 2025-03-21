@@ -1,5 +1,5 @@
 {
-       "functionAppName": "d-fa-kom-az-az-PrtsAsstImgMedi",
+       "functionAppName": "d-fa-kom-az-aem-PrtsAsstImgMeta",
        "resourceGroupName": "kac_KX_Integrations_Dev_rg",
        "location": "eastus",     
        "storageAccountName": "komkxintappeusdevsa",
