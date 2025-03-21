@@ -1,1 +1,32 @@
+{
+       "functionAppName": "d-fa-kom-az-az-PrtsAsstImgMedi",
+       "resourceGroupName": "kac_KX_Integrations_Dev_rg",
+       "location": "eastus",     
+       "storageAccountName": "komkxintappeusdevsa",
+       "appServicePlanName": "kom-kx1-eus-dev-sp",
+       "applicationInsightsName": "kom-kxint-eus-dev-appi",
+       "projectPath":"fa-.csproj",
+       "logAnalyticsWorkspaceName":"d-log-la",
 
+       "AemMediaZipUnzipQueueName" : "sbq-aemmediazipunzip-pim-partsassetimg",
+       "AemMediaZipUnzipQueueVisibilityDelay" : "5",
+       "AzureStorageConnectionString" : "@Microsoft.KeyVault(SecretUri=https://kom-kx-eus-dev-kv.vault.azure.net/secrets/common-azure-storage-connectionstring)",
+       "mfun_http_prcPrtsAsstImgZipFromPIM" : "1",
+       "Mfun_sch_prcPrtsAsstImgZipFromPIM"  : "1",
+       "CommonAzureServiceClientId" : "fc39e7d0-e6f1-42ec-9e2f-b1c8392479e1",
+       "CommonAzureServiceClientSecret" : "@Microsoft.KeyVault(SecretUri=https://kom-kx-eus-dev-kv.vault.azure.net/secrets/common-azure-client-secret)",
+       "CommonAzureServiceScope" : "fc39e7d0-e6f1-42ec-9e2f-b1c8392479e1/.default",
+       "CommonAzureServiceTokenUrl" : "https://login.microsoftonline.com/58be8688-6625-4e52-80d8-c17f3a9ae08a/oauth2/v2.0/token",
+       "CommonCustomLogServiceUri" : "https://api-dev.komatsu.com/commonutilities/v1/insertcustomlog",
+       "CommonEmailServiceCcEmail" : "pabitra.patra@global.komatsu",
+       "CommonEmailServiceFromEmail" : "komatsu-experience-integration-alerts-us@global.komatsu",
+       "CommonEmailServiceToEmail" : "pabitra.patra@global.komatsu",
+       "CommonEmailServiceUri" : "https://api-dev.komatsu.com/commonutilities/v1/sendemail",
+       "InboundContainerName" : "inbound",
+       "PartsAssetBatchFilesProcessInfoTableName" : "komkxintdataeusdevdltable05",
+       "ServiceBusConnectionString" : "@Microsoft.KeyVault(SecretUri=https://kom-kx-eus-dev-kv.vault.azure.net/secrets/",
+       "WEBSITE_USE_PLACEHOLDER_DOTNETISOLATED" : "1",
+       "WEBSITE_VNET_ROUTE_ALL" : "1",
+       "existingKeyVaultName": "kom-kx-eus-dev-kv"
+
+}
