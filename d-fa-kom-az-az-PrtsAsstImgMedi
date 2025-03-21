@@ -1,0 +1,137 @@
+[
+  {
+    "name": "AemMediaZipUnzipQueueName",
+    "value": "sbq-aemmediazipunzip-pim-partsassetimg",
+    "slotSetting": false
+  },
+  {
+    "name": "AemMediaZipUnzipQueueVisibilityDelay",
+    "value": "5",
+    "slotSetting": false
+  },
+  {
+    "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+    "value": "2a663696-f76b-4628-b694-5d2697016ba3",
+    "slotSetting": true
+  },
+  {
+    "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
+    "value": "InstrumentationKey=2a663696-f76b-4628-b694-5d2697016ba3;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/;ApplicationId=c6dd3ad0-200f-43fd-93eb-e76b167f4ae5",
+    "slotSetting": false
+  },
+  {
+    "name": "AzureStorageConnectionString",
+    "value": "DefaultEndpointsProtocol=https;AccountName=komkxintdataeusdevdl;AccountKey=sRP77IGVQlmnlANZhD4SxiCEC+fQGVM4tFrnLHpyAZeAj0bKskQGPIQ4YBvw0txss+y1dudCwq5d+AStCHc+SA==;EndpointSuffix=core.windows.net",
+    "slotSetting": false
+  },
+  {
+    "name": "AzureWebJobs.mfun_http_prcPrtsAsstImgZipFromPIM.Disabled",
+    "value": "1",
+    "slotSetting": false
+  },
+  {
+    "name": "AzureWebJobs.Mfun_sch_prcPrtsAsstImgZipFromPIM.Disabled",
+    "value": "1",
+    "slotSetting": false
+  },
+  {
+    "name": "AzureWebJobsStorage",
+    "value": "DefaultEndpointsProtocol=https;AccountName=komkxintappeusdevsa;AccountKey=8Y2sejpB5tfQcDBZZXDQArG2HJ7Quvhj3KuAF8xIgJDOukQ2sPYfJSd7lJAPauW2bTM3dlb5VBVJ+AStAs0v2w==;EndpointSuffix=core.windows.net",
+    "slotSetting": false
+  },
+  {
+    "name": "CommonAzureServiceClientId",
+    "value": "fc39e7d0-e6f1-42ec-9e2f-b1c8392479e1",
+    "slotSetting": false
+  },
+  {
+    "name": "CommonAzureServiceClientSecret",
+    "value": "@Microsoft.KeyVault(SecretUri=https://kom-kx-eus-dev-kv.vault.azure.net/secrets/common-azure-client-secret)",
+    "slotSetting": false
+  },
+  {
+    "name": "CommonAzureServiceScope",
+    "value": "fc39e7d0-e6f1-42ec-9e2f-b1c8392479e1/.default",
+    "slotSetting": false
+  },
+  {
+    "name": "CommonAzureServiceTokenUrl",
+    "value": "https://login.microsoftonline.com/58be8688-6625-4e52-80d8-c17f3a9ae08a/oauth2/v2.0/token",
+    "slotSetting": false
+  },
+  {
+    "name": "CommonCustomLogServiceUri",
+    "value": "https://api-dev.komatsu.com/commonutilities/v1/insertcustomlog",
+    "slotSetting": false
+  },
+  {
+    "name": "CommonEmailServiceCcEmail",
+    "value": "pabitra.patra@global.komatsu",
+    "slotSetting": false
+  },
+  {
+    "name": "CommonEmailServiceFromEmail",
+    "value": "komatsu-experience-integration-alerts-us@global.komatsu",
+    "slotSetting": false
+  },
+  {
+    "name": "CommonEmailServiceToEmail",
+    "value": "pabitra.patra@global.komatsu",
+    "slotSetting": false
+  },
+  {
+    "name": "CommonEmailServiceUri",
+    "value": "https://api-dev.komatsu.com/commonutilities/v1/sendemail",
+    "slotSetting": false
+  },
+  {
+    "name": "Environment",
+    "value": "Dev",
+    "slotSetting": false
+  },
+  {
+    "name": "FunctionAppName",
+    "value": "d-fa-kom-az-az-PrtsAsstImgMedia",
+    "slotSetting": false
+  },
+  {
+    "name": "FUNCTIONS_EXTENSION_VERSION",
+    "value": "~4",
+    "slotSetting": false
+  },
+  {
+    "name": "FUNCTIONS_WORKER_RUNTIME",
+    "value": "dotnet-isolated",
+    "slotSetting": false
+  },
+  {
+    "name": "InboundContainerName",
+    "value": "inbound",
+    "slotSetting": false
+  },
+  {
+    "name": "PartsAssetBatchFilesProcessInfoTableName",
+    "value": "komkxintdataeusdevdltable05",
+    "slotSetting": false
+  },
+  {
+    "name": "ServiceBusConnectionString",
+    "value": "Endpoint=sb://d-sb-message-service-eus-02.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=HYRAEfYuVXkzJux0ZMA1FyIsyr2YVSLur+ASbOz+k6Q=",
+    "slotSetting": false
+  },
+  {
+    "name": "WEBSITE_RUN_FROM_PACKAGE",
+    "value": "1",
+    "slotSetting": false
+  },
+  {
+    "name": "WEBSITE_USE_PLACEHOLDER_DOTNETISOLATED",
+    "value": "1",
+    "slotSetting": false
+  },
+  {
+    "name": "WEBSITE_VNET_ROUTE_ALL",
+    "value": "1",
+    "slotSetting": false
+  }
+]
